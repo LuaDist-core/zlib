@@ -94,18 +94,18 @@ file ( READ ${CMAKE_CURRENT_SOURCE_DIR}/zlib.h _zlib_h_contents )
 string ( REGEX REPLACE ".*#define[ \t]+ZLIB_VERSION[ \t]+\"([0-9A-Za-z.]+)\".*" "\\1" 
   ZLIB_FULL_VERSION ${_zlib_h_contents} )
 
-add_library ( zlib ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS} )
-set_target_properties ( zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL )
+add_library ( z ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS} )
+set_target_properties ( z PROPERTIES DEFINE_SYMBOL ZLIB_DLL )
 
 if ( UNIX )
   # On unix-like platforms the library is almost always called libz
-  set_target_properties ( zlib PROPERTIES OUTPUT_NAME z )
+  set_target_properties ( z PROPERTIES OUTPUT_NAME z )
 elseif ( BUILD_SHARED_LIBS AND WIN32 )
 # Creates zlib1.dll when building shared library version
 #removed:  set_target_properties(zlib PROPERTIES SUFFIX "1.dll")
 endif ( )
 
-install_library ( zlib )
+install_library ( z )
 install_header ( ${ZLIB_PUBLIC_HDRS} )
 install_doc ( zlib.3 INTO man/man3 )
 
@@ -116,19 +116,19 @@ install_doc ( zlib.3 INTO man/man3 )
 include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 
 add_executable ( example test/example.c )
-target_link_libraries ( example zlib )
+target_link_libraries ( example z )
 add_test ( example example )
 
 add_executable ( minigzip test/minigzip.c )
-target_link_libraries ( minigzip zlib )
+target_link_libraries ( minigzip z )
 
 if ( HAVE_OFF64_T )
   add_executable ( example64 test/example.c )
-  target_link_libraries ( example64 zlib )
+  target_link_libraries ( example64 z )
   set_target_properties ( example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64" )
   add_test ( example64 example64 )
 
   add_executable ( minigzip64 test/minigzip.c )
-  target_link_libraries ( minigzip64 zlib )
+  target_link_libraries ( minigzip64 z )
   set_target_properties ( minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64" )
 endif ( )
