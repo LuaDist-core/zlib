@@ -51,11 +51,11 @@ endif ( )
 #
 check_include_file ( unistd.h Z_HAVE_UNISTD_H )
 
-if ( MSVC )
-  set ( CMAKE_DEBUG_POSTFIX "d" )
-  add_definitions ( -D_CRT_SECURE_NO_DEPRECATE )
-  add_definitions ( -D_CRT_NONSTDC_NO_DEPRECATE )
-endif ( )
+#if ( MSVC )
+#  set ( CMAKE_DEBUG_POSTFIX "d" )
+#  add_definitions ( -D_CRT_SECURE_NO_DEPRECATE )
+#  add_definitions ( -D_CRT_NONSTDC_NO_DEPRECATE )
+#endif ( )
 
 if ( NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR )
   # If we're doing an out of source build and the user has a zconf.h
